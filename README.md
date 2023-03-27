@@ -7,7 +7,7 @@ Tendo em conta os objetivos de aprendizagem, deverão ser produzidos os seguinte
 # 2. O código PL/pgSQL que permite:
 
 # ~(a) Criar o modelo físico (1 script autónomo);~
-# (b) Remover o modelo físico (1 script autónomo);
+# ~(b) Remover o modelo físico (1 script autónomo);~
 # (c) Preenchimento inicial da base de dados (1 script autónomo);
 # (d) Criar os mecanismos que permitam criar o jogador, dados os seus email e username, desativar e banir o jogador;
 # (e) Criar a função totalPontosJogador que recebe como parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo jogador.
