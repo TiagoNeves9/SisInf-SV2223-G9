@@ -3,25 +3,18 @@
 
 Resultados pretendidos
 Tendo em conta os objetivos de aprendizagem, deverão ser produzidos os seguintes resultados:
-1. O modelo de dados (conceptual e relacional), incluindo todas as restrições de integridade;
-2. O código PL/pgSQL que permite:
-(a) Criar o modelo físico (1 script autónomo);
-(b) Remover o modelo físico (1 script autónomo);
-(c) Preenchimento inicial da base de dados (1 script autónomo);
-(d) Criar os mecanismos que permitam criar o jogador, dados os seus email e username,
-desativar e banir o jogador;
-(e) Criar a função totalPontosJogador que recebe como parâmetro o identificador de um
-jogador e devolve o número total de pontos obtidos pelo jogador.
-(f) Criar a função totalJogosJogador que recebe como parâmetro o identificador de um
-jogador e devolve o número total de jogos diferentes nos quais o jogador participou.
-(g) Criar a função PontosJogoPorJogador que recebe como parâmetro a referência de um jogo
-e devolve uma tabela com duas colunas (identificador de jogador, total de pontos) em que
-cada linha contém o identificador de um jogador e o total de pontos que esse jogador teve
-nesse jogo. Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.
-(h) Criar o procedimento armazenado associarCrachá que recebe como parâmetros o
-identificador de um jogador, a referência de um jogo e o nome de um crachá desse jogo e
-atribui o crachá a esse jogador se ele reunir as condições para o obter.
-(i) Criar o procedimento armazenado iniciarConversa que permite iniciar uma conversa (chat)
+# 1. O modelo de dados (conceptual e relacional), incluindo todas as restrições de integridade;
+# 2. O código PL/pgSQL que permite:
+
+# (a) Criar o modelo físico (1 script autónomo);
+# (b) Remover o modelo físico (1 script autónomo);
+# (c) Preenchimento inicial da base de dados (1 script autónomo);
+# (d) Criar os mecanismos que permitam criar o jogador, dados os seus email e username, desativar e banir o jogador;
+# (e) Criar a função totalPontosJogador que recebe como parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo jogador.
+# (f) Criar a função totalJogosJogador que recebe como parâmetro o identificador de um jogador e devolve o número total de jogos diferentes nos quais o jogador participou.
+# (g) Criar a função PontosJogoPorJogador que recebe como parâmetro a referência de um jogo<br> e devolve uma tabela com duas colunas (identificador de jogador, total de pontos) em que cada linha contém<br> o identificador de um jogador e o total de pontos que esse jogador teve nesse jogo.<br> Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.
+# (h) Criar o procedimento armazenado associarCrachá que recebe como parâmetros<br> o identificador de um jogador, a referência de um jogo e o nome de um crachá desse jogo e<br> atribui o crachá a esse jogador se ele reunir as condições para o obter.
+# (i) Criar o procedimento armazenado iniciarConversa que permite iniciar uma conversa (chat)
 dados o identificador de um jogador e o nome da conversa. O jogador deve ficar
 automaticamente associado à conversa e deve ser criada uma mensagem a informar que o
 jogador criou a conversa. O procedimento deve devolver num parâmetro de saída o
