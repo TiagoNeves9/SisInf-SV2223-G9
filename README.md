@@ -10,7 +10,7 @@ Tendo em conta os objetivos de aprendizagem, deverão ser produzidos os seguinte
 ~(a) Criar o modelo físico (1 script autónomo);~<br>
 ~(b) Remover o modelo físico (1 script autónomo);~<br>
 (c) Preenchimento inicial da base de dados (1 script autónomo);<br>
-(d) Criar os mecanismos que permitam criar o jogador, dados os seus email e username, desativar e banir o jogador;<br>
+(d) Criar os mecanismos que permitam criar o jogador, dados os seus email e username, desativar e banir o jogador;PARCIALMENTE FEITO<br>
 (e) Criar a função totalPontosJogador que recebe como parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo jogador.<br>
 (f) Criar a função totalJogosJogador que recebe como parâmetro o identificador de um jogador e devolve o número total de jogos diferentes nos quais o jogador participou.<br>
 (g) Criar a função PontosJogoPorJogador que recebe como parâmetro a referência de um jogo<br> e devolve uma tabela com duas colunas (identificador de jogador, total de pontos) em que cada linha contém<br> o identificador de um jogador e o total de pontos que esse jogador teve nesse jogo.<br> Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.<br>
