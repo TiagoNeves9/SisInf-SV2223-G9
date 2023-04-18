@@ -24,7 +24,6 @@ create table JOGOS(
 	primary key (nome_game, id_game)
 );
 
-
 create table CONVERSAS(
 	id_conversa INT GENERATED ALWAYS AS IDENTITY (START WITH 100000),
 	nome_conversa VARCHAR(40) not null,
@@ -39,8 +38,8 @@ create table NORMAL(
 	nome_game VARCHAR(40),
 	nmr_seq_partida SERIAL,
 	estado_partida estado_partida not null,
-	data_hora_inicio DATE not null,	-- check if this is the correct type
-	data_hora_fim DATE not null,	-- check the same as above
+	data_hora_inicio DATE not null,		-- check if this is the correct type
+	data_hora_fim DATE not null,		-- check if this is the correct type
 	pontuacao_n INT not null,
 	id_player INT,
 	username VARCHAR(40),
@@ -58,8 +57,8 @@ create table MULTIJOGADOR(
 	nome_game VARCHAR(40),
 	nmr_seq_partida SERIAL,
 	estado_partida estado_partida not null,
-	data_hora_inicio DATE not null,
-	data_hora_fim DATE not null,
+	data_hora_inicio DATE not null,		-- check if this is the correct type
+	data_hora_fim DATE not null,		-- check if this is the correct type
 	id_player INT,
 	username VARCHAR(40),
 	email VARCHAR(40),
@@ -89,7 +88,7 @@ create table COMPRAR(
 	id_player INT,
 	username VARCHAR(40),
 	email VARCHAR(40),
-	data_compra DATE not null,
+	data_compra DATE not null,		-- check if this is the correct type
 	preco real not null,
 	primary key (id_game, nome_game, id_player, username, email),
 	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
@@ -99,7 +98,7 @@ create table COMPRAR(
 create table ESTATISTICAS_JOGO(
 	id_game CHAR(10),
 	nome_game VARCHAR(40),
-	total_pontos_game INT not null,
+	total_pontos_game INT not null,		--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
 	nmr_players INT not null,
 	nmr_partidas_game INT not null,
 	primary key (id_game, nome_game),
@@ -110,7 +109,7 @@ create table ESTATISTICAS_JOGADORES(
 	id_player INT,
 	username VARCHAR(40),
 	email VARCHAR(40),
-	total_pontos_player INT not null,
+	total_pontos_player INT not null,	--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
 	nmr_jogos INT not null,
 	nmr_partidas_player INT not null,
 	primary key (id_player, username, email),
@@ -122,7 +121,7 @@ create table MENSAGENS(
 	nmr_seq_msg INT,
 	texto VARCHAR(500) not null,
 	remetente INT not null,
-	data_hora_msg DATE not null,
+	data_hora_msg DATE not null,		-- check if this is the correct type
 	primary key (id_conversa, nmr_seq_msg),
 	foreign key (id_conversa) references CONVERSAS(id_conversa)
 );
