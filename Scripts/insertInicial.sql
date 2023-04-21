@@ -40,6 +40,13 @@ insert into normal(
 	nome_regiao, id_game, nome_game, estado_partida, data_hora_inicio, 
 	data_hora_fim, pontuacao_n, id_player, username, email, grau_dificuldade
 )	values(
+		'Oceania', '0123456789', 'Call Of Duty', 'Por iniciar', '2022-12-10',
+		'2023-01-01', 150, 1000, 'Vascão', 'vascobranco13@gmail.com', 3
+	);	
+insert into normal(
+	nome_regiao, id_game, nome_game, estado_partida, data_hora_inicio, 
+	data_hora_fim, pontuacao_n, id_player, username, email, grau_dificuldade
+)	values(
 		'West Europe', '9876543210', 'Fifa 23', 'Em curso', '2023-04-17',
 		'2023-04-17', 3, 1002, 'Cavani', 'Tiago@gmail.com', 5
 	);
@@ -87,6 +94,13 @@ insert into multijogador(
 		'North America', 'abcdefghij', 'Counter-Strike: Global Offensive', 'A aguardar jogadores', 
 		'2023-04-15', '2023-04-18', 1006, 'Gonguinhas', 'Gonçalo@gmail.com'
 	);
+insert into multijogador(
+	nome_regiao, id_game, nome_game, estado_partida, 
+	data_hora_inicio, data_hora_fim, id_player, username, email
+) 	values(
+		'Central/West Europe', '0123456789', 'Call Of Duty', 'Em curso', 
+		'2021-03-21', '2021-03-22', 1000, 'Vascão', 'vascobranco13@gmail.com'
+	);	
 
 --Inserting on table "JOGA_MJ"
 insert into joga_mj values(
@@ -100,6 +114,10 @@ insert into joga_mj values(
 insert into joga_mj values(
 	1, '0123456789', 'Call Of Duty', 
 	'Central/West Europe', 1000, 'Vascão', 'vascobranco13@gmail.com', 4321
+);
+insert into joga_mj values(
+	5, '0123456789', 'Call Of Duty', 
+	'Central/West Europe', 1000, 'Vascão', 'vascobranco13@gmail.com', 250
 );
 insert into joga_mj values(
 	2, '9876543210', 'Fifa 23', 
