@@ -4,26 +4,35 @@
 --	nesse jogo. Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.
 
 
-drop function PontosJogoPorJogador(id_g VARCHAR(10))
+drop function PontosJogoPorJogador(id_g VARCHAR(10));
 create or replace function PontosJogoPorJogador(id_g VARCHAR(10))
-
-returns table(id_player int, totalpontos int ) 
+returns table(id_jogador int, pontos bigint)
 as $$
 begin
-	--Vericar se o id passado como parâmetro existe na tabela de jogos.
+    --Verificar se o id passado como parâmetro existe na tabela de jogos.
+    if not exists(select * from jogos where id_game = id_g) then
+        raise exception 'O id passado como parâmetro não existe na tabela de jogos.';
+    end if;
 
-	if not exists(select * from jogos where id_game = id_g) then
-		raise exception 'o id passado como parâmetro não existe na tabela de jogador.';
-	end if;
-	
-return query select id_jogador, SUM(pontuacao)
-		from(
-			select id_player as id_jogador, id_game, pontuacao_mj as pontuacao, nmr_seq_partida from joga_mj where id_game = '9876543210'
-			union 
-			select id_player, id_game, pontuacao_n, nmr_seq_partida from normal where id_game = '9876543210'
-		) as TODOSJOGOS;
+    create table tabela_G as
+        select id_player, username, nome_game, sum(pontuacao_n) as totalpontos
+        from(
+            select n.id_player, n.username, n.nome_game, n.pontuacao_n
+            from normal n
+            where n.id_game = id_g
+            union all
+            select mj.id_player, mj.username, mj.nome_game, mj.pontuacao_mj
+            from joga_mj mj
+            where mj.id_game = id_g
+            ) as tabela_G
+        group by id_player, username, nome_game;
+
+    return query select id_player, totalpontos from tabela_G;
+    drop table if exists tabela_g;
+
 end;
-$$ 	language plpgsql;
+$$ language plpgsql;
 
-select PontosJogoPorJogador('9876543210')
-	
+
+select PontosJogoPorJogador('9876543210');
+

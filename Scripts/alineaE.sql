@@ -2,7 +2,7 @@
 --	parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo
 --	jogador.
 
-drop function totalPontosJogador(id_p int)
+drop function totalPontosJogador(id_p int);
 create or replace function totalPontosJogador(id_p INT)
 returns INT as $$
 declare pontos INT;

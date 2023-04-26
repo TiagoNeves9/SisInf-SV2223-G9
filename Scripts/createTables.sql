@@ -135,3 +135,9 @@ create table CRACHAS(
 	primary key (id_game, nome_game, nome_cracha),
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
 );
+
+create table TEM(
+    id_player INT,
+    nome_cracha varchar(40),
+    primary key (id_player, nome_cracha)
+);
