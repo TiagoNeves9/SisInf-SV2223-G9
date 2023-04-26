@@ -5,6 +5,7 @@
 
 
 drop function PontosJogoPorJogador(id_g VARCHAR(10));
+
 create or replace function PontosJogoPorJogador(id_g VARCHAR(10))
 returns table(id_jogador int, pontos bigint)
 as $$

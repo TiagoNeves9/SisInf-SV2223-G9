@@ -3,6 +3,8 @@
 --   atribui o crachá a esse jogador se ele reunir as condições para o obter.
 
 
+
+
 create or replace procedure associarCracha(id_jogador int, id_g VARCHAR(50), crachaNome VARCHAR(50))
 language plpgsql
 as $$

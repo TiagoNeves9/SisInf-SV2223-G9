@@ -3,6 +3,7 @@
 --	jogador.
 
 drop function totalPontosJogador(id_p int);
+
 create or replace function totalPontosJogador(id_p INT)
 returns INT as $$
 declare pontos INT;

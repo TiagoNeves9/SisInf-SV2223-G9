@@ -42,6 +42,21 @@ begin
 end;
 $$ language plpgsql;
 
-drop function banir_jogador;
 
+--Test criar_jogador
+select criar_jogador('alineaD@gmail.com', 'userAlineaD', 'Africa');
+select * from jogadores order by id_player desc limit 1;
+
+--Test desativar_jogador
+select desativar_jogador(1000);
+select * from JOGADORES where id_player = 1000;
+
+--Test banir_jogador
 select banir_jogador(1000);
+select * from JOGADORES where id_player = 1000;
+
+
+--drop functions
+drop function banir_jogador;
+drop function desativar_jogador;
+drop function criar_jogador;
