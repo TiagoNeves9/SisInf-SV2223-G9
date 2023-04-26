@@ -125,10 +125,10 @@ insert into joga_mj values(
 );
 
 --Inserting on table "COMPRAR"
-insert into comprar values('0123456789', 'Call Of Duty', 1000, 'Vascão' , 'vascobranco13@gmail.com' , '2023-04-07', 79.99);
-insert into comprar values('9876543210', 'Fifa 23', 1000, 'Vascão' , 'vascobranco13@gmail.com', '2023-04-07', 59.99);
-insert into comprar values('22222bbbbb', 'Fortnite', 1001, 'Messi de Olhão' , 'joao@gmail.com', '2023-01-01', 0);
-insert into comprar values('abcdefghij', 'Counter-Strike: Global Offensive', 1004, 'Rodnocka', 'Ricardo@gmail.com', '2022-05-05', 0);
+insert into comprar values('0123456789', 'Call Of Duty', 1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe', '2023-04-07', 79.99);
+insert into comprar values('9876543210', 'Fifa 23', 1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe', '2023-04-07', 59.99);
+insert into comprar values('22222bbbbb', 'Fortnite', 1001, 'Messi de Olhão' , 'joao@gmail.com', 'Africa', '2023-01-01', 0);
+insert into comprar values('abcdefghij', 'Counter-Strike: Global Offensive', 1004, 'Rodnocka', 'Ricardo@gmail.com', 'Oceania', '2022-05-05', 0);
 
 --Inserting on table "ESTATISTICAS_JOGO"
 insert into estatisticas_jogo values('0123456789', 'Call Of Duty', 10000, 32, 6);
@@ -137,11 +137,11 @@ insert into estatisticas_jogo values('22222bbbbb', 'Fortnite', 99999, 32, 2);
 insert into estatisticas_jogo values('abcdefghij', 'Counter-Strike: Global Offensive', 8000, 10, 1);
 
 --Inserting on table "ESTATISTICAS_JOGADORES"
-insert into estatisticas_jogadores values(1000, 'Vascão', 'vascobranco13@gmail.com', 100, 5, 2500);
-insert into estatisticas_jogadores values(1001, 'Messi de Olhão', 'joao@gmail.com', 80, 2, 753);
-insert into estatisticas_jogadores values(1002, 'Cavani', 'Tiago@gmail.com', 44, 8, 55000);
-insert into estatisticas_jogadores values(1003, 'Toras', 'José@gmail.com', 33, 1, 2000);
-insert into estatisticas_jogadores values(1004, 'Rodnocka', 'Ricardo@gmail.com', 400, 4, 3678);
+insert into estatisticas_jogadores values(1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe', 100, 5, 2500);
+insert into estatisticas_jogadores values(1001, 'Messi de Olhão', 'joao@gmail.com', 'Africa', 80, 2, 753);
+insert into estatisticas_jogadores values(1002, 'Cavani', 'Tiago@gmail.com', 'Asia', 44, 8, 55000);
+insert into estatisticas_jogadores values(1003, 'Toras', 'José@gmail.com', 'Africa', 33, 1, 2000);
+insert into estatisticas_jogadores values(1004, 'Rodnocka', 'Ricardo@gmail.com', 'Oceania', 400, 4, 3678);
 
 --Inserting on table "MENSAGENS"
 insert into mensagens values( 100000, 0 , 'Olá' , 0 , '2023-04-04');
@@ -158,3 +158,16 @@ insert into crachas values('22222bbbbb', 'Fortnite' , 'Gunsmith' , 'https://www.
 insert into crachas values('22222bbbbb', 'Fortnite' , 'Some Sort of Rocket' , 'https://www.trueachievements.com/a236825/some-sort-of-rocket-achievement' , 15 );
 insert into crachas values('abcdefghij', 'Counter-Strike: Global Offensive' , 'God of War' , 'https://www.trueachievements.com/a166964/god-of-war-achievement' , 22);
 insert into crachas values('abcdefghij', 'Counter-Strike: Global Offensive' , 'Awardist' , 'https://www.trueachievements.com/a166965/awardist-achievementt' , 16);
+
+--Inserting on table "CRIAR"
+insert into criar values(1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe', 100000);
+insert into criar values(1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe', 100001);
+insert into criar values(1003, 'Toras', 'José@gmail.com', 'Africa', 100001);
+
+--Inserting on table "TEM"
+insert into tem values(1001, 'Messi de Olhão', 'joao@gmail.com', 'Test Drive', '0123456789', 'Call Of Duty', 'Africa');
+insert into tem values(1001, 'Messi de Olhão', 'joao@gmail.com', 'Gunless', '0123456789', 'Call Of Duty', 'Africa');
+
+--Inserting on table "AMIGO"
+insert into amigo values(1001, 'Messi de Olhão', 'joao@gmail.com', 'Africa', 1000, 'Vascão', 'vascobranco13@gmail.com', 'Central/West Europe');
+insert into amigo values(1001, 'Messi de Olhão', 'joao@gmail.com', 'Africa', 1003, 'Toras', 'José@gmail.com', 'Africa');

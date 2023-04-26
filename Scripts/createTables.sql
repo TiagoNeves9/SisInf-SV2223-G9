@@ -88,11 +88,13 @@ create table COMPRAR(
 	id_player INT,
 	username VARCHAR(40),
 	email VARCHAR(40),
+	nome_regiao VARCHAR(40),
 	data_compra DATE not null,		-- check if this is the correct type
 	preco real not null,
-	primary key (id_game, nome_game, id_player, username, email),
+	primary key (id_game, nome_game, id_player, username, email, nome_regiao),
 	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
+	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
+	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
 
 create table ESTATISTICAS_JOGO(
@@ -109,6 +111,7 @@ create table ESTATISTICAS_JOGADORES(
 	id_player INT,
 	username VARCHAR(40),
 	email VARCHAR(40),
+	nome_regiao VARCHAR(40),
 	total_pontos_player INT not null,	--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
 	nmr_jogos INT not null,
 	nmr_partidas_player INT not null,
@@ -136,8 +139,44 @@ create table CRACHAS(
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
 );
 
+create table CRIAR(
+	id_player INT,
+	username VARCHAR(40),
+	email VARCHAR(40),
+	nome_regiao VARCHAR(40),
+	id_conversa INT ,
+	primary key (id_player, username, email, nome_regiao, id_conversa),
+	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
+	foreign key (nome_regiao) references REGIAO(nome_regiao),
+	foreign key (id_conversa) references CONVERSAS(id_conversa)
+);
+
 create table TEM(
-    id_player INT,
-    nome_cracha varchar(40),
-    primary key (id_player, nome_cracha)
+	id_player INT,
+	username VARCHAR(40),
+	email VARCHAR(40),
+	nome_cracha VARCHAR(40),
+	id_game CHAR(10),
+	nome_game VARCHAR(40),
+	nome_regiao VARCHAR(40),
+    primary key (id_player, username, email, nome_cracha, id_game, nome_game, nome_regiao),
+	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
+	foreign key (nome_cracha, id_game, nome_game) references CRACHAS(nome_cracha, id_game, nome_game),
+	foreign key (nome_regiao) references REGIAO(nome_regiao)
+);
+
+create table AMIGO(
+	id_player1 INT,
+	username1 VARCHAR(40),
+	email1 VARCHAR(40),
+	nome_regiao1 VARCHAR(40),
+	id_player2 INT,
+	username2 VARCHAR(40),
+	email2 VARCHAR(40),
+	nome_regiao2 VARCHAR(40),
+	primary key (id_player1, username1, email1, nome_regiao1, id_player2, username2, email2, nome_regiao2),
+	foreign key (id_player1, username1, email1) references JOGADORES(id_player, username, email),
+	foreign key (id_player2, username2, email2) references JOGADORES(id_player, username, email),
+	foreign key (nome_regiao1) references REGIAO(nome_regiao),
+	foreign key (nome_regiao2) references REGIAO(nome_regiao)
 );

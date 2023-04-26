@@ -1,3 +1,9 @@
+delete from AMIGO;
+
+delete from TEM;
+
+delete from CRIAR;
+
 delete from CRACHAS;
 
 delete from MENSAGENS;
