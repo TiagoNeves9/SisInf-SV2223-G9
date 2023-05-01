@@ -2,6 +2,7 @@
 --	parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo
 --	jogador.
 
+
 drop function totalPontosJogador(id_p int);
 
 create or replace function totalPontosJogador(id_p INT)
@@ -21,7 +22,7 @@ begin
 		select id_player, pontuacao_n
 		from NORMAL
 		where id_player = id_p
-		UNION ALL
+			UNION ALL
 		select id_player, pontuacao_mj
 		from JOGA_MJ
 		where id_player = id_p

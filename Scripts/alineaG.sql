@@ -21,7 +21,7 @@ begin
             select n.id_player, n.username, n.nome_game, n.pontuacao_n
             from normal n
             where n.id_game = id_g
-            union all
+            	UNION ALL
             select mj.id_player, mj.username, mj.nome_game, mj.pontuacao_mj
             from joga_mj mj
             where mj.id_game = id_g
