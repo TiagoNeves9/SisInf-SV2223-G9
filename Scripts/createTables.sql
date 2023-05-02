@@ -120,7 +120,7 @@ create table ESTATISTICAS_JOGADORES(
 );
 
 create table MENSAGENS(
-	id_conversa SERIAL,
+	id_conversa INT,
 	nmr_seq_msg INT,
 	texto VARCHAR(500) not null,
 	remetente INT not null,

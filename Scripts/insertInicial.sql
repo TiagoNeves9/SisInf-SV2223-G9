@@ -144,10 +144,10 @@ insert into estatisticas_jogadores values(1003, 'Toras', 'José@gmail.com', 'Afr
 insert into estatisticas_jogadores values(1004, 'Rodnocka', 'Ricardo@gmail.com', 'Oceania', 400, 4, 3678);
 
 --Inserting on table "MENSAGENS"
-insert into mensagens values( 100000, 0 , 'Olá' , 0 , '2023-04-04');
-insert into mensagens values( 100000, 1 , 'Tudo bem?' , 0 ,  '2023-04-04');
-insert into mensagens values( 100002, 0 , 'querem jogar um ranked?' , 3 ,  '2022-07-09');
-insert into mensagens values( 100003, 0 , 'ganhei 5 jogos seguidos!' ,2 ,  '2010-02-07');
+insert into mensagens values(100000, 0, 'Olá', 0, '2023-04-04');
+insert into mensagens values(100000, 1, 'Tudo bem?', 0, '2023-04-04');
+insert into mensagens values(100002, 0, 'querem jogar um ranked?', 3, '2022-07-09');
+insert into mensagens values(100003, 0, 'ganhei 5 jogos seguidos!', 2, '2010-02-07');
 
 --Inserting on table "CRACHAS"
 insert into crachas values('0123456789', 'Call Of Duty', 'Test Drive', 'https://www.trueachievements.com/a374283/test-drive-achievement' , 20 );
