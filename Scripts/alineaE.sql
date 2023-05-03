@@ -1,6 +1,6 @@
---e) Criar, sem usar as tabelas de estatísticas, a função totalPontosJogador que recebe como
---	parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo
---	jogador.
+--(e)	Criar, sem usar as tabelas de estatísticas, a função totalPontosJogador que recebe como
+--		parâmetro o identificador de um jogador e devolve o número total de pontos obtidos pelo
+--		jogador.
 
 
 drop function totalPontosJogador(id_p int);

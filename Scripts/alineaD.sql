@@ -1,4 +1,8 @@
---d)
+--(d)	Criar os mecanismos que permitam criar o jogador, dados os seus email, região e
+--		username, desativar e banir o jogador;
+
+
+--drop functions on the last lines of file
 
 --Criar um jogador
 create or replace FUNCTION criar_jogador(email_ VARCHAR(30) , username_ VARCHAR(30) , nome_regiao VARCHAR(30))
@@ -6,7 +10,7 @@ returns void as $$
 begin
 --Verificar se email ou o username existem na tabela de jogadores.
 	if exists(select 1 from jogadores where email = email_ or username = username_ ) then
-	raise exception 'O email ou o username já existem na tabela de jogadores.';
+		raise exception 'O email ou o username já existem na tabela de jogadores.';
 	end if;
 --Inserir o novo jogador na tabela de jogadores.
 	insert into jogadores(email , username , estado_player , nome_regiao ) values( $1 , $2 , 'Ativo' , $3 );
@@ -27,6 +31,7 @@ begin
 	where id_player = id_p;
 end;
 $$ language plpgsql;
+
 
 --Banir um jogador
 create or replace function banir_jogador(id_p integer)
@@ -56,7 +61,7 @@ select banir_jogador(1000);
 select * from JOGADORES where id_player = 1000;
 
 
---drop functions
+--Drop functions
 drop function banir_jogador;
 drop function desativar_jogador;
 drop function criar_jogador;

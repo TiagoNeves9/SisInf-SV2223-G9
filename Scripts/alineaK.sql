@@ -1,6 +1,6 @@
-/*k) Criar o procedimento armazenado enviarMensagem que recebe como parâmetros os
-identificadores de um jogador e de uma conversa e o texto de uma mensagem e procede ao
-envio dessa mensagem para a conversa indicada, associando-a ao jogador também indicado.*/
+--(k) 	Criar o procedimento armazenado enviarMensagem que recebe como parâmetros os
+--		identificadores de um jogador e de uma conversa e o texto de uma mensagem e procede ao
+--		envio dessa mensagem para a conversa indicada, associando-a ao jogador também indicado.
 
 
 drop procedure if exists enviarMensagem;

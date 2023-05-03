@@ -1,6 +1,6 @@
---f) Criar, sem usar as tabelas de estatísticas, a função totalJogosJogador que recebe como
---parâmetro o identificador de um jogador e devolve o número total de jogos diferentes nos
---quais o jogador participou.
+--(f) 	Criar, sem usar as tabelas de estatísticas, a função totalJogosJogador que recebe como
+--		parâmetro o identificador de um jogador e devolve o número total de jogos diferentes nos
+--		quais o jogador participou.
 
 
 create or replace function totalJogosJogador(id_j int)

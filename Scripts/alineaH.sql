@@ -1,6 +1,6 @@
---h) Criar o procedimento armazenado associarCrachá que recebe como parâmetros o
---   identificador de um jogador, a referência de um jogo e o nome de um crachá desse jogo e
---   atribui o crachá a esse jogador se ele reunir as condições para o obter.
+--(h) 	Criar o procedimento armazenado associarCrachá que recebe como parâmetros o
+--		identificador de um jogador, a referência de um jogo e o nome de um crachá desse jogo e
+--		atribui o crachá a esse jogador se ele reunir as condições para o obter.
 
 
 drop procedure if exists associarCracha;
@@ -35,7 +35,7 @@ BEGIN
             select n.id_player, n.username, n.email, n.nome_game, n.pontuacao_n, n.nome_regiao
             from normal n
             where n.id_player = id_jogador and n.id_game = id_g
-				UNION ALL
+				union all
             select mj.id_player, mj.username, mj.email, mj.nome_game, mj.pontuacao_mj, mj.nome_regiao
             from joga_mj mj
             where mj.id_player = id_jogador and mj.id_game = id_g

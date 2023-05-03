@@ -1,7 +1,7 @@
---g) Criar a função PontosJogoPorJogador que recebe como parâmetro a referência de um jogo
--- 	e devolve uma tabela com duas colunas (identificador de jogador, total de pontos) em que
---	cada linha contém o identificador de um jogador e o total de pontos que esse jogador teve
---	nesse jogo. Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.
+--(g) 	Criar a função PontosJogoPorJogador que recebe como parâmetro a referência de um jogo
+--		e devolve uma tabela com duas colunas (identificador de jogador, total de pontos) em que
+--		cada linha contém o identificador de um jogador e o total de pontos que esse jogador teve
+--		nesse jogo. Apenas devem ser devolvidos os jogadores que tenham jogado o jogo.
 
 
 drop function PontosJogoPorJogador(id_g VARCHAR(10));
@@ -36,4 +36,3 @@ $$ language plpgsql;
 
 
 select PontosJogoPorJogador('9876543210');
-
