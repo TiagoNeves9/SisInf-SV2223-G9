@@ -1,13 +1,15 @@
-/*(l) Criar a vista jogadorTotalInfo que permita aceder à informação sobre identificador, estado,
-email, username, número total de jogos em que participou, número total de partidas em que
-participou e número total de pontos que já obteve de todos os jogadores cujo estado seja
-diferente de “Banido”. Deve implementar na vista os cálculos sem aceder às tabelas de
-estatísticas.*/
+--(l) 	Criar a vista jogadorTotalInfo que permita aceder à informação sobre identificador, estado,
+--		email, username, número total de jogos em que participou, número total de partidas em que
+--		participou e número total de pontos que já obteve de todos os jogadores cujo estado seja
+--		diferente de “Banido”. Deve implementar na vista os cálculos sem aceder às tabelas de
+--		estatísticas.
 
+
+drop view if exists jogadorTotalInfo;
 
 create or replace view jogadorTotalInfo as
 
-    select j.id_player,j.username,j.email,estado_player,jogos,partidas, totalpontos
+    select j.id_player, j.username, j.email, estado_player, jogos, partidas, totalpontos
     from (select id_player,
                  username,
                  email,
@@ -22,7 +24,7 @@ create or replace view jogadorTotalInfo as
                        sum(n.pontuacao_n)              as totalpontos
                 from normal n
                 group by n.id_player, n.username, n.nome_game, n.email
-                UNION ALL
+					union all
                 select mj.id_player,
                        mj.username,
                        mj.email,
@@ -35,6 +37,5 @@ create or replace view jogadorTotalInfo as
     ) as sample join jogadores j on sample.id_player = j.id_player
     where j.estado_player != 'Banido';
 
+
 select * from jogadorTotalInfo;
-
-

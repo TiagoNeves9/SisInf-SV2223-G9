@@ -17,12 +17,12 @@ begin
 		raise exception 'o id passado como parâmetro não existe na tabela de jogador.';
 	end if;
 	
-	select SUM(pontuacao_n) INTO pontos
+	select sum(pontuacao_n) into pontos
 	from(
 		select id_player, pontuacao_n
 		from NORMAL
 		where id_player = id_p
-			UNION ALL
+			union all
 		select id_player, pontuacao_mj
 		from JOGA_MJ
 		where id_player = id_p
@@ -31,5 +31,6 @@ begin
 	return pontos;
 end;
 $$ language plpgsql;
+
 
 select totalPontosJogador(1000);

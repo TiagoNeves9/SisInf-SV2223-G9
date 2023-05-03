@@ -54,4 +54,5 @@ BEGIN
 end
 $$;
 
+
 call associarCracha(1000, '0123456789', 'Test Drive');

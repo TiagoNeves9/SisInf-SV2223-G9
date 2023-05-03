@@ -3,6 +3,8 @@
 --		quais o jogador participou.
 
 
+drop function if exists totalJogosJogador;
+
 create or replace function totalJogosJogador(id_j int)
 returns int
 as $$
@@ -24,4 +26,5 @@ end;
 $$language plpgsql;
 
 
-select * from totalJogosJogador(1001)
+select * from totalJogosJogador(1000);
+select * from totalJogosJogador(1001);
