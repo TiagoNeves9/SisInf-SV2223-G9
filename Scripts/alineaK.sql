@@ -49,6 +49,7 @@ end
 $$;
 
 call enviarMensagem(1000, 100002, 'mekie mpts daqui quem fala é o Vascaao');
+call enviarMensagem(1001, 100002, 'Tudo bem, Vasco?');
 call enviarMensagem(1000, 100003, 'voces tao bem?');
 call enviarMensagem(1000, 100003, 'bora embora');
 call enviarMensagem(1000, 100003, 'bora embora'); --repeti propositalmente
