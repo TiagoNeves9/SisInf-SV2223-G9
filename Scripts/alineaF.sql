@@ -28,3 +28,4 @@ $$language plpgsql;
 
 select * from totalJogosJogador(1000);
 select * from totalJogosJogador(1001);
+select * from totalJogosJogador(1003);

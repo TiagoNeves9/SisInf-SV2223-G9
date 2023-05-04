@@ -11,8 +11,6 @@ language plpgsql
 as $$
 declare
     idpl int;
-    usern varchar(30);
-    email_ varchar(30);
     nome_r varchar(30);
 begin
     --Verificar se o id_jogador passado como parâmetro existe na tabela de jogadores.
@@ -26,12 +24,12 @@ begin
 	--Ir buscar o id da nova conversa e o seu nome e colocá-los nas variáveis.
     select id_conversa into id_conv from conversas where nome_conversa = nome_chat;
 	--Ir buscar os dados do id_jogador passado como parâmetro.
-    select id_player, username, email, nome_regiao into idpl, usern, email_, nome_r 
+    select id_player, nome_regiao into idpl, nome_r 
 	from jogadores 
 	where id_player = id_jogador;
 	
 	--Inserir o novo valor na tabela criar.
-    insert into criar values(idpl, usern, email_, nome_r, id_conv);
+    insert into criar values(idpl, nome_r, id_conv);
     return;
 END;
 $$;

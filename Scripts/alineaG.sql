@@ -15,24 +15,23 @@ begin
         raise exception 'O id passado como parâmetro não existe na tabela de jogos.';
     end if;
 
-    create table tabela_G as
-        select id_player, username, nome_game, sum(pontuacao_n) as totalpontos
+    create temporary table tabela_G as
+        select id_player, nome_game, sum(pontuacao_n) as totalpontos
         from(
-            select n.id_player, n.username, n.nome_game, n.pontuacao_n
+            select n.id_player, n.nome_game, n.pontuacao_n
             from normal n
             where n.id_game = id_g
-            	UNION ALL
-            select mj.id_player, mj.username, mj.nome_game, mj.pontuacao_mj
+            	union all
+            select mj.id_player, mj.nome_game, mj.pontuacao_mj
             from joga_mj mj
             where mj.id_game = id_g
             ) as tabela_G
-        group by id_player, username, nome_game;
+    	group by id_player, nome_game;
 
-    return query select id_player, totalpontos from tabela_G;
-    drop table if exists tabela_g;
-
+	return query select id_player, totalpontos from tabela_G;
+	drop table if exists tabela_g;
 end;
 $$ language plpgsql;
 
 
-select PontosJogoPorJogador('9876543210');
+select * from PontosJogoPorJogador('9876543210');
