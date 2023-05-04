@@ -8,12 +8,15 @@
 drop view if exists jogadorTotalInfo;
 
 create or replace view jogadorTotalInfo as
-    select(
-		id_player, estado, email, username, totalJogosJogador(id_player),
-		count(distinct n.nmr_seq_partida) + count(distinct mj.nmr_seq_partida),
-		totalPontosJogador(id_player)
-		
-	) where j.estado_player != 'Banido';
+    select
+		j.id_player, j.estado_player, j.email, j.username, totalJogosJogador(j.id_player),
+		count(distinct n.nmr_seq_partida) + count(distinct mj.nmr_seq_partida) as totalpartidas,
+		totalPontosJogador(j.id_player)
+	from jogadores j
+	left join normal n on j.id_player = n.id_player
+	left join multijogador mj on j.id_player = mj.id_player
+	where j.estado_player != 'Banido'
+	group by j.id_player;
 
 
 select * from jogadorTotalInfo;
