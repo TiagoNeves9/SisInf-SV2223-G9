@@ -10,22 +10,23 @@ returns int
 as $$
     declare total int;
 begin
-       select sum(jogos) into total
+       select count(distinct id_game) into total
         from(
-            select count(distinct n.id_game) as jogos
+            select id_game
             from normal n
             where n.id_player = id_j
             union all
-            select count(distinct mj.id_game) as jogos
-            from joga_mj mj
+            select mj.id_game
+            from multijogador mj
             where mj.id_player = id_j
         )as sample;
 
        return total;
 end;
-$$language plpgsql;
+$$ language plpgsql;
 
 
 select * from totalJogosJogador(1000);
 select * from totalJogosJogador(1001);
+select * from totalJogosJogador(1002);
 select * from totalJogosJogador(1003);
