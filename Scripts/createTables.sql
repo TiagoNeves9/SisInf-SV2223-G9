@@ -9,11 +9,11 @@ create table REGIAO(
 
 create table JOGADORES(
 	id_player INT GENERATED ALWAYS AS IDENTITY (START WITH 1000),
-	email VARCHAR(40),
-	username VARCHAR(40),
+	email VARCHAR(40) unique not null,
+	username VARCHAR(40) unique not null,
 	estado_player estado_player not null,
 	nome_regiao VARCHAR(40) not null,
-	primary key (id_player, username, email),
+	primary key (id_player),
 	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
 
@@ -36,36 +36,70 @@ create table NORMAL(
 	nome_regiao VARCHAR(40),
 	id_game CHAR(10),
 	nome_game VARCHAR(40),
-	nmr_seq_partida SERIAL,
+	nmr_seq_partida INT,
 	estado_partida estado_partida not null,
-	data_hora_inicio DATE not null,		-- check if this is the correct type
-	data_hora_fim DATE not null,		-- check if this is the correct type
+	data_hora_inicio TIMESTAMP,
+	data_hora_fim TIMESTAMP,
 	pontuacao_n INT not null,
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	grau_dificuldade INT not null check (grau_dificuldade between 1 and 5),
 	primary key (nome_regiao, id_game, nome_game, nmr_seq_partida),
 	foreign key (nome_regiao) references REGIAO(nome_regiao),
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email)
+	foreign key (id_player) references JOGADORES(id_player),
+	
+	constraint normal_datas
+		check(
+			(	
+				(estado_partida = 'Por iniciar' or estado_partida = 'A aguardar jogadores')
+			 	and data_hora_inicio is null and data_hora_fim is null
+			)	
+			or
+			(	
+				estado_partida = 'Em curso'
+			 	and	data_hora_inicio is not null and data_hora_fim is null
+			)	
+			or
+			(
+			 	estado_partida = 'Terminada'
+				and data_hora_inicio is not null and data_hora_fim is not null
+				and data_hora_inicio < data_hora_fim
+			)
+		)
 );
 
 create table MULTIJOGADOR(
 	nome_regiao VARCHAR(40),
 	id_game CHAR(10),
 	nome_game VARCHAR(40),
-	nmr_seq_partida SERIAL,
+	nmr_seq_partida INT,
 	estado_partida estado_partida not null,
-	data_hora_inicio DATE not null,		-- check if this is the correct type
-	data_hora_fim DATE not null,		-- check if this is the correct type
+	data_hora_inicio TIMESTAMP,
+	data_hora_fim TIMESTAMP,
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	primary key (nome_regiao, id_game, nome_game, nmr_seq_partida),
 	foreign key (nome_regiao) references REGIAO(nome_regiao),
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email)
+	foreign key (id_player) references JOGADORES(id_player),
+
+	constraint multijogador_datas
+		check(
+			(	
+				(estado_partida = 'Por iniciar' or estado_partida = 'A aguardar jogadores')
+			 	and data_hora_inicio is null and data_hora_fim is null
+			)	
+			or
+			(	
+				estado_partida = 'Em curso'
+			 	and	data_hora_inicio is not null and data_hora_fim is null
+			)	
+			or
+			(
+			 	estado_partida = 'Terminada'
+				and data_hora_inicio is not null and data_hora_fim is not null
+				and data_hora_inicio < data_hora_fim
+			)
+		)
 );
 
 create table JOGA_MJ(
@@ -74,11 +108,9 @@ create table JOGA_MJ(
 	nome_game VARCHAR(40),
 	nome_regiao VARCHAR(40),
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	pontuacao_mj INT not null,
-	primary key (nmr_seq_partida, id_player, username, email, id_game, nome_game, nome_regiao),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
+	primary key (nmr_seq_partida, id_player, id_game, nome_game, nome_regiao),
+	foreign key (id_player) references JOGADORES(id_player),
 	foreign key (nmr_seq_partida, id_game, nome_game, nome_regiao) references MULTIJOGADOR(nmr_seq_partida, id_game, nome_game, nome_regiao)
 );
 
@@ -86,13 +118,11 @@ create table COMPRAR(
 	id_game CHAR(10),
 	nome_game VARCHAR(40),
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	nome_regiao VARCHAR(40),
-	data_compra DATE not null,		-- check if this is the correct type
+	data_compra TIMESTAMP with TIME ZONE not null,
 	preco real not null,
-	primary key (id_game, nome_game, id_player, username, email, nome_regiao),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
+	primary key (id_game, nome_game, id_player, nome_regiao),
+	foreign key (id_player) references JOGADORES(id_player),
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
 	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
@@ -109,14 +139,22 @@ create table ESTATISTICAS_JOGO(
 
 create table ESTATISTICAS_JOGADORES(
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	nome_regiao VARCHAR(40),
 	total_pontos_player INT not null,	--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
 	nmr_jogos INT not null,
 	nmr_partidas_player INT not null,
-	primary key (id_player, username, email),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email)
+	primary key (id_player),
+	foreign key (id_player) references JOGADORES(id_player)
+);
+
+create table CRIAR(
+	id_player INT,
+	nome_regiao VARCHAR(40),
+	id_conversa INT,
+	primary key (id_player, nome_regiao, id_conversa),
+	foreign key (id_player) references JOGADORES(id_player),
+	foreign key (nome_regiao) references REGIAO(nome_regiao),
+	foreign key (id_conversa) references CONVERSAS(id_conversa)
 );
 
 create table MENSAGENS(
@@ -124,9 +162,12 @@ create table MENSAGENS(
 	nmr_seq_msg INT,
 	texto VARCHAR(500) not null,
 	remetente INT not null,
-	data_hora_msg DATE not null,		-- check if this is the correct type
+	regiao_remetente VARCHAR(40) not null,
+	data_hora_msg TIMESTAMP with TIME ZONE not null
+		default timezone('Europe/Lisbon', current_timestamp),	
 	primary key (id_conversa, nmr_seq_msg),
-	foreign key (id_conversa) references CONVERSAS(id_conversa)
+	foreign key (id_conversa) references CONVERSAS(id_conversa),
+	foreign key (id_conversa, remetente, regiao_remetente) references CRIAR(id_conversa, id_player, nome_regiao)
 );
 
 create table CRACHAS(
@@ -139,44 +180,26 @@ create table CRACHAS(
 	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
 );
 
-create table CRIAR(
-	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
-	nome_regiao VARCHAR(40),
-	id_conversa INT ,
-	primary key (id_player, username, email, nome_regiao, id_conversa),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
-	foreign key (nome_regiao) references REGIAO(nome_regiao),
-	foreign key (id_conversa) references CONVERSAS(id_conversa)
-);
-
 create table TEM(
 	id_player INT,
-	username VARCHAR(40),
-	email VARCHAR(40),
 	nome_cracha VARCHAR(40),
 	id_game CHAR(10),
 	nome_game VARCHAR(40),
 	nome_regiao VARCHAR(40),
-    primary key (id_player, username, email, nome_cracha, id_game, nome_game, nome_regiao),
-	foreign key (id_player, username, email) references JOGADORES(id_player, username, email),
+    primary key (id_player, nome_cracha, id_game, nome_game, nome_regiao),
+	foreign key (id_player) references JOGADORES(id_player),
 	foreign key (nome_cracha, id_game, nome_game) references CRACHAS(nome_cracha, id_game, nome_game),
 	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
 
 create table AMIGO(
 	id_player1 INT,
-	username1 VARCHAR(40),
-	email1 VARCHAR(40),
 	nome_regiao1 VARCHAR(40),
 	id_player2 INT,
-	username2 VARCHAR(40),
-	email2 VARCHAR(40),
 	nome_regiao2 VARCHAR(40),
-	primary key (id_player1, username1, email1, nome_regiao1, id_player2, username2, email2, nome_regiao2),
-	foreign key (id_player1, username1, email1) references JOGADORES(id_player, username, email),
-	foreign key (id_player2, username2, email2) references JOGADORES(id_player, username, email),
+	primary key (id_player1, nome_regiao1, id_player2, nome_regiao2),
+	foreign key (id_player1) references JOGADORES(id_player),
+	foreign key (id_player2) references JOGADORES(id_player),
 	foreign key (nome_regiao1) references REGIAO(nome_regiao),
 	foreign key (nome_regiao2) references REGIAO(nome_regiao)
 );
