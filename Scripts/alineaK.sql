@@ -47,14 +47,7 @@ end
 $$;
 
 
-call enviarMensagem(1000, 100000, 'mekie mpts daqui quem fala é o Vascaao');
-call enviarMensagem(1001, 100000, 'Tudo bem, Vasco?');
-call enviarMensagem(1000, 100000, 'voces tao bem?');
-call enviarMensagem(1003, 100003, 'bora embora');
-call enviarMensagem(1003, 100003, 'bora embora'); --repeti propositalmente
-call enviarMensagem(1003, 100003, 'bora embora'); --estes 2 para testar
-call enviarMensagem(1001, 100002, 'Hoje não jogo, estou de viagem...');
-call enviarMensagem(1001, 100002, 'Amanhã jogo!');
+
 
 select * from mensagens order by id_conversa, nmr_seq_msg;
 select * from conversas;

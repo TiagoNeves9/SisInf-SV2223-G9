@@ -190,3 +190,38 @@ BEGIN
 END;
 $$;
 ------------------------------------------------------
+--alinea K
+
+do
+$$
+    declare n_msg INT;
+BEGIN
+    select count(*) into n_msg from mensagens;
+    raise notice 'Existem % mensagens', n_msg;
+
+    call enviarMensagem(1000, 100000, 'mekie mpts daqui quem fala é o Vascaao');
+    call enviarMensagem(1001, 100000, 'Tudo bem, Vasco?');
+    call enviarMensagem(1000, 100000, 'voces tao bem?');
+    call enviarMensagem(1003, 100003, 'bora embora');
+    call enviarMensagem(1003, 100003, 'bora embora'); --repeti propositalmente
+    call enviarMensagem(1003, 100003, 'bora embora'); --estes 2 para testar
+    call enviarMensagem(1001, 100002, 'Hoje não jogo, estou de viagem...');
+    call enviarMensagem(1001, 100002, 'Amanhã jogo!');
+
+    if(select count(*) from mensagens) != n_msg then
+        raise notice 'Teste enviarMensagem -> mensagens adicionadas : OK';
+    else
+        raise notice 'Teste enviarMensagem -> mensagens adicionadas : FAIL';
+    end if;
+
+    if(select count(*) from mensagens) = n_msg + 8 then
+        raise notice 'Teste enviarMensagem -> mensagens repetidas: OK';
+    else
+        raise notice 'Teste enviarMensagem -> mensagens repetidas: FAIL';
+    end if;
+
+    ROLLBACK;
+END;
+$$;
+----------------------------------------------------------------
+
