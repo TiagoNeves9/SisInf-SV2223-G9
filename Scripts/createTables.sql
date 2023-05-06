@@ -18,10 +18,10 @@ create table JOGADORES(
 );
 
 create table JOGOS(
-	nome_game VARCHAR(40),
 	id_game CHAR(10) CONSTRAINT id_size_check CHECK (id_game ~* '^[A-Z0-9]+$'),
+	nome_game VARCHAR(40),
 	url VARCHAR(80) not null, -- check if is an URL
-	primary key (nome_game, id_game)
+	primary key (id_game)
 );
 
 create table CONVERSAS(
@@ -35,7 +35,6 @@ create table CONVERSAS(
 create table NORMAL(
 	nome_regiao VARCHAR(40),
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	nmr_seq_partida INT,
 	estado_partida estado_partida not null,
 	data_hora_inicio TIMESTAMP,
@@ -43,9 +42,9 @@ create table NORMAL(
 	pontuacao_n INT not null,
 	id_player INT,
 	grau_dificuldade INT not null check (grau_dificuldade between 1 and 5),
-	primary key (nome_regiao, id_game, nome_game, nmr_seq_partida),
+	primary key (nome_regiao, id_game, nmr_seq_partida),
 	foreign key (nome_regiao) references REGIAO(nome_regiao),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
+	foreign key (id_game) references JOGOS(id_game),
 	foreign key (id_player) references JOGADORES(id_player),
 	
 	constraint normal_datas
@@ -71,15 +70,14 @@ create table NORMAL(
 create table MULTIJOGADOR(
 	nome_regiao VARCHAR(40),
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	nmr_seq_partida INT,
 	estado_partida estado_partida not null,
 	data_hora_inicio TIMESTAMP,
 	data_hora_fim TIMESTAMP,
 	id_player INT,
-	primary key (nome_regiao, id_game, nome_game, nmr_seq_partida),
+	primary key (nome_regiao, id_game, nmr_seq_partida),
 	foreign key (nome_regiao) references REGIAO(nome_regiao),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
+	foreign key (id_game) references JOGOS(id_game),
 	foreign key (id_player) references JOGADORES(id_player),
 
 	constraint multijogador_datas
@@ -105,44 +103,40 @@ create table MULTIJOGADOR(
 create table JOGA_MJ(
 	nmr_seq_partida INT,
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	nome_regiao VARCHAR(40),
 	id_player INT,
 	pontuacao_mj INT not null,
-	primary key (nmr_seq_partida, id_player, id_game, nome_game, nome_regiao),
+	primary key (nmr_seq_partida, id_player, id_game, nome_regiao),
 	foreign key (id_player) references JOGADORES(id_player),
-	foreign key (nmr_seq_partida, id_game, nome_game, nome_regiao) references MULTIJOGADOR(nmr_seq_partida, id_game, nome_game, nome_regiao)
+	foreign key (nmr_seq_partida, id_game, nome_regiao) references MULTIJOGADOR(nmr_seq_partida, id_game, nome_regiao)
 );
 
 create table COMPRAR(
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	id_player INT,
 	nome_regiao VARCHAR(40),
 	data_compra TIMESTAMP with TIME ZONE not null,
 	preco real not null,
-	primary key (id_game, nome_game, id_player, nome_regiao),
+	primary key (id_game, id_player, nome_regiao),
 	foreign key (id_player) references JOGADORES(id_player),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game),
+	foreign key (id_game) references JOGOS(id_game),
 	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
 
 create table ESTATISTICAS_JOGO(
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
-	total_pontos_game INT not null,		--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
-	nmr_players INT not null,
 	nmr_partidas_game INT not null,
-	primary key (id_game, nome_game),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
+	nmr_players INT not null,
+	total_pontos_game INT not null,
+	primary key (id_game),
+	foreign key (id_game) references JOGOS(id_game)
 );
 
 create table ESTATISTICAS_JOGADORES(
 	id_player INT,
-	nome_regiao VARCHAR(40),
-	total_pontos_player INT not null,	--ACHO que tem de ser uma função que calcula em vez de ser uma coluna
-	nmr_jogos INT not null,
 	nmr_partidas_player INT not null,
+	nmr_jogos INT not null,
+	total_pontos_player INT not null,
 	primary key (id_player),
 	foreign key (id_player) references JOGADORES(id_player)
 );
@@ -172,23 +166,21 @@ create table MENSAGENS(
 
 create table CRACHAS(
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	nome_cracha VARCHAR(40),
 	url VARCHAR(80) not null,
 	limite_pontos INT not null	,
-	primary key (id_game, nome_game, nome_cracha),
-	foreign key (id_game, nome_game) references JOGOS(id_game, nome_game)
+	primary key (id_game, nome_cracha),
+	foreign key (id_game) references JOGOS(id_game)
 );
 
 create table TEM(
 	id_player INT,
 	nome_cracha VARCHAR(40),
 	id_game CHAR(10),
-	nome_game VARCHAR(40),
 	nome_regiao VARCHAR(40),
-    primary key (id_player, nome_cracha, id_game, nome_game, nome_regiao),
+    primary key (id_player, nome_cracha, id_game, nome_regiao),
 	foreign key (id_player) references JOGADORES(id_player),
-	foreign key (nome_cracha, id_game, nome_game) references CRACHAS(nome_cracha, id_game, nome_game),
+	foreign key (nome_cracha, id_game) references CRACHAS(nome_cracha, id_game),
 	foreign key (nome_regiao) references REGIAO(nome_regiao)
 );
 

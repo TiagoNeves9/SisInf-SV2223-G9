@@ -38,8 +38,8 @@ $$;
 do $$
 declare id_chat int;
 begin
-	--call iniciarConversa(1002, 'sera?', id_chat);
-	call iniciarConversa(1001, 'chat_off_topic', id_chat);
+	call iniciarConversa(1002, 'sera?', id_chat);
+	call iniciarConversa(1001, 'chat_gamers', id_chat);
 	RAISE NOTICE 'id_conv = %', id_chat;
 end $$;
 

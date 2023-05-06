@@ -47,7 +47,7 @@ end
 $$;
 
 
-
+call enviarMensagem(1001, 100001, 'Vai um joguinho?');
 
 select * from mensagens order by id_conversa, nmr_seq_msg;
 select * from conversas;
