@@ -11,6 +11,9 @@ returns INT as $$
 	declare 
 		total int;
 		pontos int;
+		partidas_n int;
+		partidas_mj int;
+		partidas int;
 
 begin
 	
@@ -32,16 +35,27 @@ begin
 		where mj.id_player = id_p
   	) as TODAS_PARTIDAS;
 	
+	select count(distinct nmr_seq_partida)
+		into partidas_n	from normal where id_player = id_p;
+		
+	select count(distinct nmr_seq_partida)
+		into partidas_mj from joga_mj where id_player = id_p;
+		
+	partidas := partidas_n + partidas_mj;
+		
 	if not exists(
 		select 1 
 		from estatisticas_jogadores ej
 		where ej.id_player = id_p
 	) then	
 		insert into estatisticas_jogadores
-				select id_p, count(distinct n.nmr_seq_partida) + count(distinct mj.nmr_seq_partida), 
-				total, pontos
-				from NORMAL n, JOGA_MJ mj
-				where n.id_player = id_p and mj.id_player = id_p;
+			values(id_p, partidas, total, pontos);
+	else
+		update estatisticas_jogadores
+		set nmr_partidas_player = partidas,
+			nmr_jogos = total,
+			total_pontos_player = pontos
+		where id_player = id_p;
 	end if;
 	
 	return pontos;
@@ -53,4 +67,11 @@ select totalPontosJogador(1000);
 select totalPontosJogador(1001);
 select totalPontosJogador(1002);
 select totalPontosJogador(1003);
+
+insert into normal values(						--testing if
+		'Oceania', '0123456789', 2, 'Em curso',	--stats table
+		current_date, null, 30000, 1000, 3		--updates
+	);											--dynamically
+	
 select * from estatisticas_jogadores;
+select * from normal order by id_player;
