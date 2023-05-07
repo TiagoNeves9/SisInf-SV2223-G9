@@ -6,6 +6,7 @@
 
 drop procedure if exists iniciarConversa;
 
+set transaction isolation level read committed;
 create or replace procedure iniciarConversa(id_jogador int, nome_chat varchar(30), out id_conv int)
 language plpgsql
 as $$
