@@ -5,6 +5,7 @@
 --drop functions on the last lines of file
 
 --Criar um jogador
+set transaction isolation level read uncommitted;
 create or replace procedure criar_jogador(email_ VARCHAR(30) , username_ VARCHAR(30) , nome_regiao VARCHAR(30))
 language plpgsql 
 as $$
@@ -20,6 +21,7 @@ $$;
 
 
 --Desativar um jogador
+set transaction isolation level read uncommitted;
 create or replace procedure desativar_jogador(id_p integer)
 language plpgsql
 as $$
@@ -36,6 +38,7 @@ $$;
 
 
 --Banir um jogador
+set transaction isolation level read uncommitted;
 create or replace procedure banir_jogador(id_p integer)
 language plpgsql
 as $$

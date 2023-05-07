@@ -5,6 +5,7 @@
 
 drop procedure if exists enviarMensagem;
 
+set transaction isolation level read committed;
 create or replace procedure enviarMensagem(id_jogador int, id_conv int, msg varchar(500))
 language plpgsql
 as $$

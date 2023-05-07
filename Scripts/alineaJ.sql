@@ -4,6 +4,7 @@
 
 drop procedure if exists juntarConversa;
 
+set transaction isolation level read uncommitted;
 create or replace procedure juntarConversa(id_jogador int, id_conv int)
 language plpgsql
 as $$
@@ -28,7 +29,7 @@ END;
 $$;
 
 
-call juntarConversa(1001, 100001);
+call juntarConversa(1000, 100001);
 
 select * from conversas;
 select * from criar;

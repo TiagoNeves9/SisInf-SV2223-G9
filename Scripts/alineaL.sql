@@ -7,6 +7,7 @@
 
 drop view if exists jogadorTotalInfo;
 
+set transaction isolation level read uncommitted;
 create or replace view jogadorTotalInfo as
     select
 		j.id_player, j.estado_player, j.email, j.username, totalJogosJogador(j.id_player),

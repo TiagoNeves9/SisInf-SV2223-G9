@@ -1,3 +1,9 @@
+--(m) 	Criar os mecanismos necessários para que, de forma automática, quando uma partida
+--		termina, se proceda à atribuição de crachás do jogo a que ela pertence.
+
+
+--	Para a tabela multijogador
+set transaction isolation level read uncommitted;
 CREATE OR REPLACE FUNCTION associarCrachaMultijogador() 
 RETURNS TRIGGER AS $$
 declare
@@ -30,13 +36,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
 CREATE TRIGGER associarCrachaMultijogador
 AFTER UPDATE ON multijogador
 FOR EACH ROW
 EXECUTE FUNCTION associarCrachaMultijogador();
 
---Para a tabela normal
 
+--	Para a tabela normal
+set transaction isolation level read uncommitted;
 CREATE OR REPLACE FUNCTION associarCrachaNormal() 
 RETURNS TRIGGER AS $$
 declare
@@ -76,9 +84,8 @@ FOR EACH ROW
 EXECUTE FUNCTION associarCrachaNormal();
 
 
+--Exemplo de chamada
+update normal set estado_partida = 'Terminada', data_hora_inicio = '2023-04-05 00:00:00', data_hora_fim = current_timestamp where nmr_seq_partida = 0 and id_game = '0123456789';
 
 select * from tem;
 select * from normal;
-
---Exemplo de chamada
-update normal set estado_partida = 'Terminada' ,data_hora_inicio = '2023-04-05 00:00:00', data_hora_fim = current_timestamp where nmr_seq_partida = 0 and id_game = '0123456789';

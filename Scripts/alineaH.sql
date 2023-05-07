@@ -5,6 +5,7 @@
 
 drop procedure if exists associarCracha;
 
+set transaction isolation level read uncommitted;
 create or replace procedure associarCracha(id_jogador int, id_g VARCHAR(50), crachaNome VARCHAR(50))
 language plpgsql
 as $$
@@ -53,4 +54,5 @@ $$;
 
 
 call associarCracha(1000, '0123456789', 'Test Drive');
+select * from tem;
 select * from crachas;

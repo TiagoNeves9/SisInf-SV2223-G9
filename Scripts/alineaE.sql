@@ -5,6 +5,7 @@
 
 drop function totalPontosJogador(id_p int);
 
+set transaction isolation level read committed;
 create or replace function totalPontosJogador(id_p INT)
 returns INT as $$
 

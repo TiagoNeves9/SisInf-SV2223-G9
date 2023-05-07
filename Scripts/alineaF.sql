@@ -5,6 +5,7 @@
 
 drop function if exists totalJogosJogador;
 
+set transaction isolation level read uncommitted;
 create or replace function totalJogosJogador(id_p int)
 returns int
 as $$

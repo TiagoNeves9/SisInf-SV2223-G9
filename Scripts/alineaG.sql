@@ -6,6 +6,7 @@
 
 drop function PontosJogoPorJogador(id_g VARCHAR(10));
 
+set transaction isolation level read uncommitted;
 create or replace function PontosJogoPorJogador(id_g VARCHAR(10))
 returns table(id_jogador int, pontos bigint)
 as $$
@@ -36,26 +37,32 @@ begin
             ) as tabela_G
     	group by id_player;
 		
+	select into players 
+		count(distinct id_player) from comprar where id_game = id_g;
+	select into pontos_n coalesce(sum(pontuacao_n), 0) from normal where id_game = id_g;
+	select into pontos_mj coalesce(sum(pontuacao_mj), 0) from joga_mj where id_game = id_g;
+	pontos := pontos_n + pontos_mj;	
+		
+	select into partidas coalesce(count(*), 0) 
+		from (
+			select id_game from normal where id_game = id_g
+				union all
+			select id_game from joga_mj where id_game = id_g
+		) as combined_count;
+
 	if not exists(
 		select 1 
 		from estatisticas_jogo ej
 		where ej.id_game = id_g
 	) then
-		select into players 
-			count(distinct id_player) from comprar where id_game = id_g;
-			
-		select into pontos_n coalesce(sum(pontuacao_n), 0) from normal where id_game = id_g;
-		select into pontos_mj coalesce(sum(pontuacao_mj), 0) from joga_mj where id_game = id_g;
-		pontos := pontos_n + pontos_mj;	
-		
-		select into partidas coalesce(count(*), 0) 
-			from (
-				select id_game from normal where id_game = id_g
-					union all
-				select id_game from joga_mj where id_game = id_g
-			) as combined_count;
-	
-		insert into estatisticas_jogo values(id_g, partidas, players, pontos);
+		insert into estatisticas_jogo 
+			values(id_g, partidas, players, pontos);
+	else
+		update estatisticas_jogo
+		set nmr_partidas_game = partidas,
+			nmr_players = players,
+			total_pontos_game = pontos
+		where id_game = id_g;
 	end if;
 
 	return query select id_player, totalpontos from tabela_G;
@@ -66,6 +73,12 @@ $$ language plpgsql;
 
 select * from PontosJogoPorJogador('9876543210');
 select * from PontosJogoPorJogador('22222bbbbb');
+
+insert into normal values(						--testing if
+		'Oceania', '22222bbbbb', 3, 'Em curso',	--stats table
+		current_date, null, 330, 1002, 1		--updates
+	);											--dynamically
+	
 select * from estatisticas_jogo;
-select * from joga_mj;
-select * from normal;
+select * from joga_mj order by id_player;
+select * from normal order by id_player;
