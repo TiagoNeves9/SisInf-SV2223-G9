@@ -135,12 +135,12 @@ insert into mensagens values(100003, 0, 'ganhei 5 jogos seguidos!', 1003, 'Afric
 insert into mensagens values(100000, 2, 'Tudo', 1001, 'West Europe'); --Insert com a data passada por default (current_timestamp)
 */
 --Inserting on table "CRACHAS"
-insert into crachas values('0123456789', 'Test Drive', 'https://www.trueachievements.com/a374283/test-drive-achievement', 20 );
-insert into crachas values('0123456789', 'Gunless' , 'https://www.trueachievements.com/a374282/gunless-achievement', 15 );
-insert into crachas values('9876543210', 'Teamwork works' , 'https://www.trueachievements.com/a368522/teamwork-works-achievement', 45 );
-insert into crachas values('9876543210', 'Fresh fit' , 'https://www.trueachievements.com/a368523/fresh-fit-achievement', 10 );
-insert into crachas values('22222bbbbb', 'Gunsmith' , 'https://www.trueachievements.com/a236827/gunsmith-achievement', 20 );
-insert into crachas values('22222bbbbb', 'Some Sort of Rocket' , 'https://www.trueachievements.com/a236825/some-sort-of-rocket-achievement', 15 );
+insert into crachas values('0123456789', 'Test Drive', 'https://www.trueachievements.com/a374283/test-drive-achievement', 20);
+insert into crachas values('0123456789', 'Gunless' , 'https://www.trueachievements.com/a374282/gunless-achievement', 15);
+insert into crachas values('9876543210', 'Teamwork works' , 'https://www.trueachievements.com/a368522/teamwork-works-achievement', 45);
+insert into crachas values('9876543210', 'Fresh fit' , 'https://www.trueachievements.com/a368523/fresh-fit-achievement', 10);
+insert into crachas values('22222bbbbb', 'Gunsmith' , 'https://www.trueachievements.com/a236827/gunsmith-achievement', 20);
+insert into crachas values('22222bbbbb', 'Some Sort of Rocket' , 'https://www.trueachievements.com/a236825/some-sort-of-rocket-achievement', 15);
 insert into crachas values('abcdefghij', 'God of War' , 'https://www.trueachievements.com/a166964/god-of-war-achievement', 22);
 insert into crachas values('abcdefghij', 'Awardist' , 'https://www.trueachievements.com/a166965/awardist-achievementt', 16);
 
