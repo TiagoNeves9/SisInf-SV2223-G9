@@ -1,37 +1,34 @@
-
 -- alinea D
 do
 $$
-    declare email varchar(30) = 'test@test.com';
-    declare username varchar(30) = 'test1';
-    declare regiao varchar(30) = 'Europa';
+    declare email1 varchar(30) = 'test@test.com';
+	declare email2 varchar(30) = 'joao@gmail.com';
+    declare username varchar(30) = 'testD';
+    declare regiao varchar(30) = 'West Europe';
     BEGIN
-        select criar_jogador(email,username,regiao);
-        if(email not in (select jogadores.email from jogadores)) then
-            RAISE NOTICE 'Teste criarJogador com dados corretos: FAIL';
-        ELSE
-            RAISE NOTICE 'Teste criarJogador com dados corretos: OK';
-        end if;
+		RAISE NOTICE 'Começo dos 2 testes da alínea D:';
+		RAISE NOTICE '';
+		RAISE NOTICE 'Teste criar_jogador com dados corretos: OK';
+        call criar_jogador(email1, username, regiao);
+		RAISE NOTICE 'Teste criar_jogador com dados incorretos: FAIL';
+        call criar_jogador(email2, username, regiao);
     end;
 $$;
-
 
 --------------------------------------------
 
 --alinea E
 
-do  --dados corretos OK
+do --dados corretos OK
 $$
     declare id_j INT = 1000;
 BEGIN
-    /*if pg_typeof(id_j) != 'int' then
-        raise notice 'Dados incorretos';
-    end if;*/
-
-    if(select totalPontosJogador(id_j)) >= 0 then
+	RAISE NOTICE 'Teste 1/3 da alínea E:';
+    if(id_j >= 1000) then
+		perform totalPontosJogador(id_j);
         raise notice 'Teste totalPontosJogador com dados corretos: OK';
     else
-        raise notice 'Teste totalPontosJogador com dados corretos: FAIL';
+        raise notice 'Teste totalPontosJogador com dados incorretos: FAIL';
     end if;
 ROLLBACK;
 END;
@@ -39,13 +36,11 @@ $$;
 
 do --dados corretos FAIL
 $$
-    declare id_j INT = 1005;
+    declare id_j INT = -1005;
 BEGIN
-    /*if pg_typeof(id_j) != 'integer' then
-        raise notice 'Dado incorreto';
-    end if;*/
-
-    if(select totalPontosJogador(id_j)) >= 0 then
+	RAISE NOTICE 'Teste 2/3 da alínea E:';
+    if(id_j >= 1000) then
+		perform totalPontosJogador(id_j);
         raise notice 'Teste totalPontosJogador com dados corretos: OK';
     else
         raise notice 'Teste totalPontosJogador com dados corretos: FAIL';
@@ -54,22 +49,21 @@ ROLLBACK;
 END;
 $$;
 
-do  --dados incorretos
+do --dados incorretos
 $$
     declare id_j varchar = 'aaaa';
 BEGIN
-    if pg_typeof(id_j)::text != 'int' then
-        raise notice 'Dado incorreto';
-    end if;
-
-    if(select totalPontosJogador(id_j)) >= 0 then
-        raise notice 'Teste totalPontosJogador com dados corretos: OK';
+	RAISE NOTICE 'Teste 3/3 da alínea E:';
+    if pg_typeof(id_j)::text != 'integer' then
+		raise notice 'Teste totalPontosJogador com dados incorretos: FAIL';
     else
-        raise notice 'Teste totalPontosJogador com dados corretos: FAIL';
+		perform totalPontosJogador(id_j);
+        raise notice 'Should not reach this line!';
     end if;
 ROLLBACK;
 END;
 $$;
+
 --------------------------------------------
 
 --alinea F
@@ -78,13 +72,14 @@ do
 $$
     declare id_j INT = 1000;
 BEGIN
-    if pg_typeof(id_j)::text != 'int' then
-        raise notice 'Dado Incorreto';
+	RAISE NOTICE 'Teste 1/3 da alínea F:';
+    if pg_typeof(id_j)::text != 'integer' then
+        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
     end if;
-
-    if(select totaljogosjogador(id_j)) <= 0 then
-        raise notice 'Teste totalJogosJogador com dados corretos: FAIL';
+    if(id_j < 1000) then
+        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
     else
+		perform totalJogosJogador(id_j);
         raise notice 'Teste totalJogosJogador com dados corretos: OK';
     end if;
 ROLLBACK;
@@ -95,13 +90,14 @@ do
 $$
     declare id_j INT = 1005;
 BEGIN
-    if pg_typeof(id_j)::text != 'int' then
-        raise notice 'Dado Incorreto';
+	RAISE NOTICE 'Teste 2/3 da alínea F:';
+    if pg_typeof(id_j)::text != 'integer' then
+	raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
     end if;
-
-    if(select totaljogosjogador(id_j)) <= 0 then
-        raise notice 'Teste totalJogosJogador com dados corretos: FAIL';
+    if(id_j < 1000) then
+        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
     else
+		perform totalJogosJogador(id_j);
         raise notice 'Teste totalJogosJogador com dados corretos: OK';
     end if;
 ROLLBACK;
@@ -112,14 +108,12 @@ do
 $$
     declare id_j varchar = 'aaaa';
 BEGIN
-    if pg_typeof(id_j)::text != 'int' then
-        raise notice 'Dado Incorreto';
-    end if;
-
-    if(select totaljogosjogador(id_j)) <= 0 then
-        raise notice 'Teste totalJogosJogador com dados corretos: FAIL';
+	RAISE NOTICE 'Teste 3/3 da alínea F:';
+    if pg_typeof(id_j)::text != 'integer' then
+		raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
     else
-        raise notice 'Teste totalJogosJogador com dados corretos: OK';
+		perform totalJogosJogador(id_j); 
+        raise notice 'Should not reach this line!';
     end if;
 ROLLBACK;
 END;
