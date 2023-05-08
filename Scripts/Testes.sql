@@ -7,7 +7,6 @@ $$
     declare regiao varchar(30) = 'West Europe';
     BEGIN
 		RAISE NOTICE 'Começo dos 2 testes da alínea D:';
-		RAISE NOTICE '';
 		RAISE NOTICE 'Teste criar_jogador com dados corretos: OK';
         call criar_jogador(email1, username, regiao);
 		RAISE NOTICE 'Teste criar_jogador com dados incorretos: FAIL';
@@ -15,7 +14,7 @@ $$
     end;
 $$;
 
---------------------------------------------
+-------------------------------------------------
 
 --alinea E
 
@@ -28,7 +27,7 @@ BEGIN
 		perform totalPontosJogador(id_j);
         raise notice 'Teste totalPontosJogador com dados corretos: OK';
     else
-        raise notice 'Teste totalPontosJogador com dados incorretos: FAIL';
+		raise notice 'Should not reach this line!';
     end if;
 ROLLBACK;
 END;
@@ -40,10 +39,10 @@ $$
 BEGIN
 	RAISE NOTICE 'Teste 2/3 da alínea E:';
     if(id_j >= 1000) then
-		perform totalPontosJogador(id_j);
-        raise notice 'Teste totalPontosJogador com dados corretos: OK';
+		raise notice 'Should not reach this line!';
     else
         raise notice 'Teste totalPontosJogador com dados corretos: FAIL';
+		perform totalPontosJogador(id_j);
     end if;
 ROLLBACK;
 END;
@@ -56,15 +55,15 @@ BEGIN
 	RAISE NOTICE 'Teste 3/3 da alínea E:';
     if pg_typeof(id_j)::text != 'integer' then
 		raise notice 'Teste totalPontosJogador com dados incorretos: FAIL';
-    else
 		perform totalPontosJogador(id_j);
+    else
         raise notice 'Should not reach this line!';
     end if;
 ROLLBACK;
 END;
 $$;
 
---------------------------------------------
+-------------------------------------------------
 
 --alinea F
 
@@ -74,10 +73,10 @@ $$
 BEGIN
 	RAISE NOTICE 'Teste 1/3 da alínea F:';
     if pg_typeof(id_j)::text != 'integer' then
-        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
+		raise notice 'Should not reach this line!';
     end if;
     if(id_j < 1000) then
-        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
+		raise notice 'Should not reach this line!';
     else
 		perform totalJogosJogador(id_j);
         raise notice 'Teste totalJogosJogador com dados corretos: OK';
@@ -92,10 +91,10 @@ $$
 BEGIN
 	RAISE NOTICE 'Teste 2/3 da alínea F:';
     if pg_typeof(id_j)::text != 'integer' then
-	raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
+	raise notice 'Should not reach this line!';
     end if;
     if(id_j < 1000) then
-        raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
+		raise notice 'Should not reach this line!';
     else
 		perform totalJogosJogador(id_j);
         raise notice 'Teste totalJogosJogador com dados corretos: OK';
@@ -111,54 +110,74 @@ BEGIN
 	RAISE NOTICE 'Teste 3/3 da alínea F:';
     if pg_typeof(id_j)::text != 'integer' then
 		raise notice 'Teste totalJogosJogador com dados incorretos: FAIL';
+		perform totalJogosJogador(id_j);
     else
-		perform totalJogosJogador(id_j); 
         raise notice 'Should not reach this line!';
     end if;
 ROLLBACK;
 END;
 $$;
 
------------------------------------
+-------------------------------------------------
+
 --alinea G
 
 do
 $$
-    declare id_g varchar = '9876543210';
+    declare id_g_valid varchar = '9876543210';
+    declare id_g_invalid varchar = '9876543210';
 BEGIN
-        /*if pg_typeof(id_g)::text = 'int' then
-        raise notice 'Dados Incorretos, Teste pontosJogoPorJogador: FAIL';  --Ainda nao sei bem como utilizar isto de forma correta
-        end if;*/
-        if(select count(id_jogador) from pontosjogoporjogador(id_g)) > 0 then
-            raise notice 'Teste pontosJogoPorJogador: OK';
-        end if;
+	RAISE NOTICE 'Começo dos 2 testes da alínea G:';
+	if((select count(id_jogador) from pontosJogoPorJogador(id_g_valid)) > 0) then
+		raise notice 'Teste pontosJogoPorJogador com dados corretos: OK';
+	else
+   		raise notice 'Should not reach this line!';
+	end if;
+	if((select count(id_jogador) from pontosJogoPorJogador(id_g_invalid)) != 0) then
+		raise notice 'Teste pontosJogoPorJogador com dados incorretos: FAIL';
+	else
+   		raise notice 'Should not reach this line!';
+	end if;
 ROLLBACK;
 end;
 $$;
 
--------------------------------------
+-------------------------------------------------
+
 --alinea H
 
 do
 $$
 BEGIN
-    --preenchimento da tabela com informação nova
+	RAISE NOTICE 'Começo dos 2 testes da alínea G:';
+    --Eliminação da tabela atual e preenchimento da tabela com informação nova
+	delete from tem;
     call associarCracha(1004, '22222bbbbb', 'Some Sort of Rocket');
     call associarCracha(1004, '22222bbbbb', 'Gunsmith');
 
-    if(select count(*) from  tem where id_player = 1004) = 2 then
-        raise notice 'Teste associarCracha: OK';
+    if((select count(*) from tem where id_player = 1004) = 2) then
+        raise notice 'Teste associarCracha com dados corretos: OK';
     else
-        raise notice 'Teste associarCracha: FAIL';
-    end if;
+   		raise notice 'Should not reach this line!';
+	end if;
+   	
+	call associarCracha(1000, '22222bbbbb', 'Some Sort of Rocket');
+	
+	if((select count(*) from tem where id_player = 1000) = 0) then
+    	raise notice 'Teste associarCracha com dados incorretos: FAIL';
+    else
+   		raise notice 'Should not reach this line!';
+	end if;
     ROLLBACK;
 END;
 $$;
 
---------------------------------------
+-------------------------------------------------
+
 --alinea I
 
---------------------------------------
+-------------------------------------------------
+
 --alinea J
 
 do
@@ -183,7 +202,9 @@ BEGIN
     ROLLBACK;
 END;
 $$;
-------------------------------------------------------
+
+-------------------------------------------------
+
 --alinea K
 
 do
@@ -217,5 +238,5 @@ BEGIN
     ROLLBACK;
 END;
 $$;
-----------------------------------------------------------------
 
+-------------------------------------------------
