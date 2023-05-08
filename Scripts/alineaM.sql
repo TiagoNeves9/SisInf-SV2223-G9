@@ -22,7 +22,7 @@ BEGIN
 		into id_game_ , id_player_, nome_regiao_
 		from multijogador
 		where id_game = old.id_game and id_player = old.id_player and old.estado_partida != new.estado_partida and new.estado_partida  = 'Terminada';
-		raise notice 'The value is %',id_player_;
+		--raise notice 'The value is %',id_player_;
 		-- Ir ver quanto cada jogador pontuou no jogo passado como parâmetro
 		select pontos into total_pontos from PontosJogoPorJogador(id_game_) where id_jogador = id_player_;
 		-- Ir buscar os pontos necessários para obter cada cracha no jogo em questão e iterar por todos os crachas existentes, verificando a condição
@@ -65,7 +65,7 @@ BEGIN
 		into id_game_, id_player_, nome_regiao_
 		from normal
 		where id_game = old.id_game and id_player = old.id_player and old.estado_partida != new.estado_partida and new.estado_partida  = 'Terminada';
-		raise notice 'The value is %',id_player_;
+		--raise notice 'The value is %',id_player_;
 		-- Ir ver quanto cada jogador pontuou no jogo passado como parâmetro
 		select pontos into total_pontos from PontosJogoPorJogador(id_game_) where id_jogador = id_player_;
 		-- Ir buscar os pontos necessários para obter cada cracha no jogo em questão e iterar por todos os crachas existentes, verificando a condição

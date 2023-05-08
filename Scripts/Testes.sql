@@ -255,9 +255,72 @@ $$;
 
 -- L
 
+--Nada a testar.
 --É uma vista, mostra as informações de todos
 --os jogadores não banidos:
+
+do
+$$
+BEGIN
+	RAISE NOTICE 'Alínea L:';
+	perform * from jogadorTotalInfo;
+    ROLLBACK;
+END;
+$$;
 
 select * from jogadorTotalInfo;
 
 -------------------------------------------------
+
+-- M
+
+do
+$$
+    declare nmr_crachas int;
+	declare nmr_seq int;
+BEGIN
+	RAISE NOTICE 'Começo do teste da alínea M (trigger):';
+    delete from tem;
+	delete from crachas;
+    select count(*) into nmr_crachas from tem;
+	select count(*) into nmr_seq from normal where id_game = '0123456789';
+    raise notice 'Existem % crachás', nmr_crachas;
+	
+	insert into crachas values('0123456789', 'Test M', 'https://www.trueachievements.com/a374283/testM', 10);
+	insert into normal values(
+		'Oceania', '0123456789', nmr_seq + 1, 'Em curso', 
+		'2023-04-11 23:58', null, 100, 1000, 3
+	);
+	update normal set estado_partida = 'Terminada', data_hora_fim = current_timestamp 
+		where id_player = 1000 and nmr_seq_partida = nmr_seq + 1 and id_game = '0123456789';
+
+	if ((select count(*) from tem where id_player = 1000) >= nmr_crachas + 1) then
+		raise notice 'Teste associarCracha com dados corretos: OK';
+    else
+   		raise notice 'Should not reach this line!';
+	end if;
+	
+    ROLLBACK;
+END;
+$$;
+
+-------------------------------------------------
+
+-- N
+
+--Nada a testar.
+--É um trigger que bane todos os jogadores apenas.
+
+do
+$$
+BEGIN
+	RAISE NOTICE 'Alínea N:';
+	DELETE FROM jogadorTotalInfo;
+	perform * from jogadores;
+    ROLLBACK;
+END;
+$$;
+
+--Colocar o rollback em comentário para ver
+--todos os jogadores banidos no select abaixo
+select * from jogadores; 
