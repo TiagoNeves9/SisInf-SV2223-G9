@@ -141,7 +141,7 @@ create table ESTATISTICAS_JOGADORES(
 	foreign key (id_player) references JOGADORES(id_player)
 );
 
-create table CRIAR(
+create table PARTICIPAR(
 	id_player INT,
 	nome_regiao VARCHAR(40),
 	id_conversa INT,
@@ -161,7 +161,7 @@ create table MENSAGENS(
 		default timezone('Europe/Lisbon', current_timestamp),	
 	primary key (id_conversa, nmr_seq_msg),
 	foreign key (id_conversa) references CONVERSAS(id_conversa),
-	foreign key (id_conversa, remetente, regiao_remetente) references CRIAR(id_conversa, id_player, nome_regiao)
+	foreign key (id_conversa, remetente, regiao_remetente) references PARTICIPAR(id_conversa, id_player, nome_regiao)
 );
 
 create table CRACHAS(

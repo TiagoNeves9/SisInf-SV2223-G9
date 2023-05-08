@@ -3,6 +3,8 @@
 
 
 --	Para a tabela multijogador
+drop function if exists associarCrachaMultijogador;
+
 set transaction isolation level read uncommitted;
 CREATE OR REPLACE FUNCTION associarCrachaMultijogador() 
 RETURNS TRIGGER AS $$
@@ -44,6 +46,8 @@ EXECUTE FUNCTION associarCrachaMultijogador();
 
 
 --	Para a tabela normal
+drop function if exists associarCrachaNormal;
+
 set transaction isolation level read uncommitted;
 CREATE OR REPLACE FUNCTION associarCrachaNormal() 
 RETURNS TRIGGER AS $$
@@ -85,7 +89,9 @@ EXECUTE FUNCTION associarCrachaNormal();
 
 
 --Exemplo de chamada
-update normal set estado_partida = 'Terminada', data_hora_inicio = '2023-04-05 00:00:00', data_hora_fim = current_timestamp where nmr_seq_partida = 0 and id_game = '0123456789';
+update normal set 
+	estado_partida = 'Terminada', data_hora_inicio = '2023-04-05 00:00:00', 
+	data_hora_fim = current_timestamp where nmr_seq_partida = 0 and id_game = '0123456789';
 
 select * from tem;
 select * from normal;

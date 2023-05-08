@@ -29,8 +29,8 @@ begin
 	from jogadores 
 	where id_player = id_jogador;
 	
-	--Inserir o novo valor na tabela criar.
-    insert into criar values(idpl, nome_r, id_conv);
+	--Inserir o novo valor na tabela participar.
+    insert into participar values(idpl, nome_r, id_conv);
     return;
 END;
 $$;
@@ -45,4 +45,4 @@ begin
 end $$;
 
 select * from conversas;
-select * from criar;
+select * from participar;

@@ -36,9 +36,9 @@ begin
     select nome_regiao into v_nome_regiao from tabelaK;
     select coalesce(max(nmr_seq_msg) + 1, 0) into nmr_msg from mensagens where id_conversa = id_conv;
 
-	if not exists (select 1 from criar where id_jogador = id_player) then
-    	insert into criar values(id_jogador, v_nome_regiao, id_conv);
-	-- else não insere em CRIAR porque a conversa já existe 
+	if not exists (select 1 from participar where id_jogador = id_player) then
+    	insert into participar values(id_jogador, v_nome_regiao, id_conv);
+	-- else não insere em PARTICIPAR porque a conversa já existe 
 	end if;
 	
     insert into mensagens values(id_conv, nmr_msg, msg, id_jogador, v_nome_regiao);
@@ -48,8 +48,8 @@ end
 $$;
 
 
-call enviarMensagem(1001, 100001, 'Vai um joguinho?');
+call enviarMensagem(1000, 100001, 'Vai um joguinho?');
 
 select * from mensagens order by id_conversa, nmr_seq_msg;
 select * from conversas;
-select * from criar order by id_player;
+select * from participar order by id_player;

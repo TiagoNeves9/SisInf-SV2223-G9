@@ -9,6 +9,8 @@ FOR EACH ROW
 EXECUTE FUNCTION excluirVista();
 
 
+--drop function if exists excluirVista;
+
 CREATE OR REPLACE FUNCTION excluirVista()
 RETURNS TRIGGER 
 AS $$

@@ -116,14 +116,14 @@ insert into comprar values('abcdefghij', 1004, 'Oceania', '2022-05-05', 0);
 --Inserting on table "ESTATISTICAS_JOGADORES"
 --Alíneas E e F 
 
---Inserting on table "CRIAR"
+--Inserting on table "PARTICIPAR"
 --Alíneas I e J 
 /*
-insert into criar values(1000, 'Central/West Europe', 100000);
-insert into criar values(1001, 'West Europe', 100000);
-insert into criar values(1000, 'Central/West Europe', 100001);
-insert into criar values(1001, 'West Europe', 100002);
-insert into criar values(1003, 'Africa', 100003);
+insert into participar values(1000, 'Central/West Europe', 100000);
+insert into participar values(1001, 'West Europe', 100000);
+insert into participar values(1000, 'Central/West Europe', 100001);
+insert into participar values(1001, 'West Europe', 100002);
+insert into participar values(1003, 'Africa', 100003);
 */
 --Inserting on table "MENSAGENS"
 --Alínea K

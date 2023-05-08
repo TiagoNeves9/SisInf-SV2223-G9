@@ -6,7 +6,7 @@ drop table if exists CRACHAS cascade;
 
 drop table if exists MENSAGENS cascade;
 
-drop table if exists CRIAR cascade;
+drop table if exists PARTICIPAR cascade;
 
 drop table if exists ESTATISTICAS_JOGADORES cascade;
 

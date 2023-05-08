@@ -6,7 +6,7 @@ delete from CRACHAS;
 
 delete from MENSAGENS;
 
-delete from CRIAR;
+delete from PARTICIPAR;
 
 delete from ESTATISTICAS_JOGADORES;
 
